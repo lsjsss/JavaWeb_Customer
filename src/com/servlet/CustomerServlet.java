@@ -65,8 +65,11 @@ public class CustomerServlet extends HttpServlet {
 			request.setAttribute("reg", "失败！");
 		} else {
 			// Dao 层添加
-			this.customerDao.add(loginName, realName, password, Integer.valueOf(roleId));
-
+			// 使用 executeUpdate
+			this.customerDao.add(loginName, realName, password, roleId);
+			// 使用 insert
+//			this.customerDao.add(loginName, realName, password, Integer.valueOf(roleId));
+			
 			// 返回jsp页面消息
 			request.setAttribute("reg", "成功！");
 		}
@@ -76,7 +79,11 @@ public class CustomerServlet extends HttpServlet {
 	
 	// 删
 	private void delete(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
-		int ret = this.customerDao.delete(Integer.valueOf(id));
+		// 使用 executeUpdate
+		int ret = this.customerDao.delete(id);
+		// 使用 update
+//		int ret = this.customerDao.delete(Integer.valueOf(id));
+		
 		if (ret == 1) {
 			request.setAttribute("reg", "成功！");
 		} else {
@@ -88,7 +95,11 @@ public class CustomerServlet extends HttpServlet {
 	
 	// 改前获取值 - 跳编辑页面
 	private void get(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
-		SysCustomer customer = this.customerDao.get(Integer.valueOf(id));
+		// 使用 executeQuery		
+		SysCustomer customer = this.customerDao.get(id);
+		// 使用 get		
+//		SysCustomer customer = this.customerDao.get(Integer.valueOf(id));
+		
 		request.setAttribute("customer", customer);
 		// 跳转
 		request.getRequestDispatcher("/customerEdit.jsp").forward(request, response);
@@ -101,8 +112,11 @@ public class CustomerServlet extends HttpServlet {
 			request.setAttribute("reg", "失败！");
 		} else {
 			// Dao 层修改
-			this.customerDao.edit(Integer.valueOf(id), loginName, realName);
-
+			// 使用 executeUpdate
+			this.customerDao.edit(id, loginName, realName);
+			// 使用 update
+//			this.customerDao.edit(Integer.valueOf(id), loginName, realName);
+			
 			// 返回jsp页面消息
 			request.setAttribute("reg", "成功！");
 		}
@@ -113,7 +127,10 @@ public class CustomerServlet extends HttpServlet {
 	// 查
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取数据库表中全部数据
+		// 使用 executeQuery
 		List<SysCustomer> customerList = this.customerDao.getAll();
+		// 使用 getForList
+//		List<SysCustomer> customerList = this.customerDao.getAlls();
 		request.setAttribute("customerList", customerList);
 
 		// 跳转 - 列表页面

@@ -64,6 +64,11 @@ public class SysCustomer implements Serializable {
 	public int getRoleId() {
 		return roleId;
 	}
+	
+	public String getRoleIds() {
+		String roleIds = "" + roleId;
+		return roleIds;
+	}
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
